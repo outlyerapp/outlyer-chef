@@ -1,0 +1,31 @@
+---
+## Set to yes to disable RPC and run plugins from local plugin source
+solo: <%= node['dataloop']['agent']['solo_mode'] %>
+
+## Set to yes to create lots of logs
+debug: <%= node['dataloop']['agent']['debug'] %>
+
+## set to yes to monitor Docker containers on this host
+docker: <%= node['dataloop']['agent']['docker'] %>
+
+## The dataloop api key
+api-key: <%= node['dataloop']['agent']['api_key'] %>
+
+<%- unless node['dataloop']['agent']['server'].nil? %>
+### The dataloop server endpoint
+server: <%= node['dataloop']['agent']['server'] %>
+<%- end %>
+
+##  set tags to a comma separated list of tags applied to this agent
+<%- if node['dataloop']['agent']['tags'].nil? %>
+#tags:
+<%- else %>
+tags: <%= node['dataloop']['agent']['tags'].join(',') %>
+<%- end %>
+
+## Set if you would like a custom name for this agent. Default is hostname
+<%- if node['dataloop']['agent']['name'].nil? %>
+#name:
+<%- else %>
+name: <%= node['dataloop']['agent']['name'] %>
+<%- end %>
