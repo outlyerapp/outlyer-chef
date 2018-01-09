@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: dataloop
+# Cookbook Name:: outlyer
 # Recipe:: default
 #
 # Copyright 2013, Dataloop Software Limited
@@ -20,10 +20,10 @@
 case node['platform_family']
 when 'rhel', 'fedora'
 
-  yum_repository 'dataloop' do
+  yum_repository 'outlyer' do
     description 'Dataloop Repository'
-    baseurl      node['dataloop']['package_repository']
-    gpgkey       node['dataloop']['package_gpg_key']
+    baseurl      node['outlyer']['package_repository']
+    gpgkey       node['outlyer']['package_gpg_key']
     action       :create
   end
 
@@ -32,16 +32,16 @@ when 'debian'
 
   # remove any expired apt-key
   execute "remove expired key" do
-    command "apt-key del #{node['dataloop']['package_gpg_id']}"
-    only_if "apt-key list | grep #{node['dataloop']['package_gpg_id']} | grep expired"
+    command "apt-key del #{node['outlyer']['package_gpg_id']}"
+    only_if "apt-key list | grep #{node['outlyer']['package_gpg_id']} | grep expired"
   end
     
-  apt_repository 'dataloop' do
-    uri          node['dataloop']['package_repository']
+  apt_repository 'outlyer' do
+    uri          node['outlyer']['package_repository']
     distribution node['kernel']['machine'] + '/'
-    key          node['dataloop']['package_gpg_id']
+    key          node['outlyer']['package_gpg_id']
     keyserver   'keyserver.ubuntu.com'
-    distribution node['dataloop']['package_distribution']
+    distribution node['outlyer']['package_distribution']
     components   ['main']
   end
 end

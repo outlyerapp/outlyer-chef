@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: dataloop
+# Cookbook Name:: outlyer-agent
 # Recipe:: default
 #
 # Copyright 2013, Dataloop Software Limited
@@ -17,27 +17,27 @@
 # limitations under the License.
 #
 
-include_recipe "dataloop-agent::#{node['dataloop']['agent']['install_method']}"
+include_recipe "outlyer-agent::#{node['outlyer']['agent']['install_method']}"
 
-template node['dataloop']['agent']['init_vars_file'] do
-  path "#{node['dataloop']['agent']['init_vars_dir']}/#{node['dataloop']['agent']['init_vars_file']}"
+template node['outlyer']['agent']['init_vars_file'] do
+  path "#{node['outlyer']['agent']['init_vars_dir']}/#{node['outlyer']['agent']['init_vars_file']}"
   source "agent.conf.erb"
   owner "root"
   group "root"
   mode 0640
-  notifies :restart, "service[dataloop-agent]", :delayed
+  notifies :restart, "service[outlyer-agent]", :delayed
 end
 
-template node['dataloop']['agent']['conf_file'] do
-  path "#{node['dataloop']['agent']['conf_dir']}/#{node['dataloop']['agent']['conf_file']}"
+template node['outlyer']['agent']['conf_file'] do
+  path "#{node['outlyer']['agent']['conf_dir']}/#{node['outlyer']['agent']['conf_file']}"
   source "agent.yaml.erb"
   owner "root"
-  group "dataloop"
+  group "outlyer"
   mode 0640
-  notifies :restart, "service[dataloop-agent]", :delayed
+  notifies :restart, "service[outlyer-agent]", :delayed
 end
 
-service "dataloop-agent" do
+service "outlyer-agent" do
   supports :status => true, :restart => true, :reload => false
   action [ :enable, :start ]
 end

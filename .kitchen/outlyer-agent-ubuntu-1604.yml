@@ -1,0 +1,7 @@
+---
+last_error: Kitchen::ActionFailed
+hostname: 127.0.0.1
+port: '2222'
+username: vagrant
+ssh_key: "/Users/oliver/Outlyer-agent-cookbook/.kitchen/kitchen-vagrant/outlyer-agent-ubuntu-1604/.vagrant/machines/default/virtualbox/private_key"
+last_action: create
