@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: dataloop
+# Cookbook Name:: outlyer
 # Recipe:: bash
 #
 # Copyright 2013, Dataloop Software Limited
@@ -17,59 +17,59 @@
 # limitations under the License.
 #
 
-user node['dataloop']['node']['user'] do
+user node['outlyer']['node']['user'] do
     action :create
     supports :mange_home => true
     comment "Dataloop User Account"
-    home node['dataloop']['agent']['run_dir']
+    home node['outlyer']['agent']['run_dir']
 end
 
-remote_file node['dataloop']['agent']['bin_dir'] do
-  source node['dataloop']['agent']['uri']
-  checksum node['dataloop']['agent']['checksum']
+remote_file node['outlyer']['agent']['bin_dir'] do
+  source node['outlyer']['agent']['uri']
+  checksum node['outlyer']['agent']['checksum']
   mode 0755
 end
 
-directory node['dataloop']['agent']['run_dir'] do
+directory node['outlyer']['agent']['run_dir'] do
   action :create 
-  owner node['dataloop']['node']['user']
-  group node['dataloop']['node']['user']
+  owner node['outlyer']['node']['user']
+  group node['outlyer']['node']['user']
   mode 0755
   recursive true
 end
 
-directory "#{node['dataloop']['agent']['run_dir']}" do
+directory "#{node['outlyer']['agent']['run_dir']}" do
   action :create 
-  owner node['dataloop']['node']['user']
-  group node['dataloop']['node']['user']
+  owner node['outlyer']['node']['user']
+  group node['outlyer']['node']['user']
   mode 0755
   recursive true
 end
 
 
-directory node['dataloop']['agent']['log_dir'] do
+directory node['outlyer']['agent']['log_dir'] do
   action :create 
-  owner node['dataloop']['node']['user']
-  group node['dataloop']['node']['user']
+  owner node['outlyer']['node']['user']
+  group node['outlyer']['node']['user']
   mode 0755
 end
 
-directory node['dataloop']['agent']['conf_dir'] do
+directory node['outlyer']['agent']['conf_dir'] do
   action :create 
-  owner node['dataloop']['node']['user']
-  group node['dataloop']['node']['user']
+  owner node['outlyer']['node']['user']
+  group node['outlyer']['node']['user']
   mode 0755
 end
 
-template node['dataloop']['agent']['init'] do
-  source "dataloop-agent.erb"
+template node['outlyer']['agent']['init'] do
+  source "outlyer-agent.erb"
   owner "root"
   group "root"
   mode 0755
 end
 
 ## I'm not particularly proud of this but for some reason the
-#permissions on /opt/dataloop keep being reset to "root:root",
+#permissions on /opt/outlyer keep being reset to "root:root",
 #preventing the agent from starting properly.
 #
 #This bash script forces the permissions to the correct settings and
@@ -78,6 +78,6 @@ bash "hack permissions" do
     user "root"
     cwd  "/opt"
     code <<-EOH
-    chown -Rvf dataloop:root /opt/dataloop
+    chown -Rvf outlyer:root /opt/outlyer
     EOH
 end

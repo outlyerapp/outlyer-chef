@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: dataloop
+# Cookbook Name:: outlyer
 # Recipe:: default
 #
 # Copyright 2013, Dataloop Software Limited
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-dataloop_secret = Chef::EncryptedDataBagItem.load_secret("#{node[:dataloop][:node][:secret_key_file]}")
-dataloop_keys = Chef::EncryptedDataBagItem.load("dataloop", "keys", dataloop_secret)
+outlyer_secret = Chef::EncryptedDataBagItem.load_secret("#{node[:outlyer][:node][:secret_key_file]}")
+outlyer_keys = Chef::EncryptedDataBagItem.load("outlyer", "keys", outlyer_secret)
 
 

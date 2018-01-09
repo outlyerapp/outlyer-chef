@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: outlyer
-# Recipe:: package
+# Recipe:: file
 #
 # Copyright 2014, Dataloop Software Limited
 #
@@ -17,20 +17,41 @@
 # limitations under the License.
 #
 
-include_recipe 'outlyer-agent::repo'
 
 case node['platform_family']
 when 'rhel', 'fedora'
   package_install_opts = ''
+  distro = 'centos'
 when 'debian'
   package_install_opts = ''
+  distro = 'debian'
+  if node['outlyer']['agent']['keep_old_config'] then
+    package_install_opts = '-o Dpkg::Options::="--force-confold"'
+  end
+when 'ubuntu'
+  package_install_opts = ''
+  distro = 'ubuntu'
   if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
   end
 end
 
+
+bannana = "#{node['outlyer']['agent']['package']['location']}#{node['outlyer']['agent']['package']['maturity']}/#{node['platform']}/#{node['platform_version']}/pkg/outlyer-agent_#{node['outlyer']['agent']['package']['version']}_amd64.deb"
+log bannana
+remote_file '/var/tmp/outlyer.deb' do
+  source bannana
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+
+
+
 package "outlyer-agent" do
   version node['outlyer']['agent']['version']
   options package_install_opts
+  source "/var/tmp/outlyer.deb"
   action :upgrade
 end

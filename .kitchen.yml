@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 2048
+  network:
+  # - ["private_network", {type: "dhcp"}]
+  - ["forwarded_port", {guest: 443, host: 8443}]
+  # - ["forwarded_port", {guest: 6379, host: 6379}]
+  - ["forwarded_port", {guest: 9001, host: 9001}]
+  - ["forwarded_port", {guest: 8091, host: 8091}]
+
+site_cookbooks_dir: site-cookbook
+
+provisioner:
+  name: chef_solo
+  require_chef_omnibus: 12.6.0
+  # chef_version: 12.5.1
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: centos-6.4
+  - name: centos-7.2
+
+suites:
+  - name: outlyer-agent
+    run_list:
+      - recipe[outlyer-agent]
