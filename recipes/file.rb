@@ -49,7 +49,7 @@ end
 
 
 
-package "outlyer-agent" do
+dpkg_package "outlyer-agent" do
   version node['outlyer']['agent']['version']
   options package_install_opts
   source "/var/tmp/outlyer.deb"
