@@ -1,4 +1,4 @@
-Dataloop-agent Cookbook
+Outlyer-agent Cookbook
 =================
 This cookbook installs the Outlyer agent on a host.
 
@@ -12,7 +12,6 @@ Platforms
 ---------
 * Ubuntu 12.04, 14.04, 16.04
 * Rhel/Centos >= 6
-* Microsoft Windows
 
 Optional
 ------------
