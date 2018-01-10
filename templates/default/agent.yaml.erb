@@ -1,31 +1,51 @@
 ---
-## Set to yes to disable RPC and run plugins from local plugin source
-solo: <%= node['dataloop']['agent']['solo_mode'] %>
+agent:
+    # account Agent key (default: None, this is a required parameter)
+    key: <%= node['outlyer']['agent']['api_key'] %>
+    # enable debug logging (default: false)
+    debug: <%= node['outlyer']['agent']['debug'] %>
+    # override the Agent hostname (default: auto-detected)
+    ## Set if you would like a custom name for this agent. Default is hostname
+    <%- if node['outlyer']['agent']['name'].nil? %>
+    #hostname:
+    <%- else %>
+    hostname: <%= node['outlyer']['agent']['name'] %>
+    <%- end %>
+    ##  set the host lables applied to this agent
+    <%- if node['outlyer']['agent']['lables'].nil? %>
+    #lables:
+    <%- else %>
+    lables:
+        <% @node['outlyer']['agent']['lables'].each do |lable_key, lable_value| -%>
+        <%= "#{lable_key}: #{lable_value}" %>
+        <% end -%>
+    <%- end %>
+    # Choose which labels are going to be added to metric dimensions
+    <%- if node['outlyer']['agent']['metric_lables'].nil? %>
+    #matric_lables:
+    <%- else %>
+    metric_lables:
+        <% @node['outlyer']['agent']['metric_lables'].each do |lable| -%>
+        - <%= "#{lable}"%> 
+        <% end -%>
+    <%- end %>
+    # Locations of user plugins (default: /etc/outlyer/config.d)
+    # config_dir: "/etc/outlyer/config.d"
 
-## Set to yes to create lots of logs
-debug: <%= node['dataloop']['agent']['debug'] %>
+    # Location of libjvm.so  for jmx plugins (default: False)
+    # libjvm_path: '/usr/lib/jvm/current/libjvm.so'
 
-## set to yes to monitor Docker containers on this host
-docker: <%= node['dataloop']['agent']['docker'] %>
+    # location for Agent server connection.
+    # This should not need to be changed (default: exchange.outlyer.com)
+    <%- unless node['outlyer']['agent']['server'].nil? %>
+    ### The outlyer server endpoint
+    server: <%= node['outlyer']['agent']['server'] %>
+    <%- end %>
 
-## The dataloop api key
-api-key: <%= node['dataloop']['agent']['api_key'] %>
+    # solo mode disables central configuration
+    solo: <%= node['outlyer']['agent']['solo_mode'] %>
 
-<%- unless node['dataloop']['agent']['server'].nil? %>
-### The dataloop server endpoint
-server: <%= node['dataloop']['agent']['server'] %>
-<%- end %>
 
-##  set tags to a comma separated list of tags applied to this agent
-<%- if node['dataloop']['agent']['tags'].nil? %>
-#tags:
-<%- else %>
-tags: <%= node['dataloop']['agent']['tags'].join(',') %>
-<%- end %>
 
-## Set if you would like a custom name for this agent. Default is hostname
-<%- if node['dataloop']['agent']['name'].nil? %>
-#name:
-<%- else %>
-name: <%= node['dataloop']['agent']['name'] %>
-<%- end %>
+
+
