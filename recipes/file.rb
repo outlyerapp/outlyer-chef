@@ -18,40 +18,53 @@
 #
 
 
-case node['platform_family']
-when 'rhel', 'fedora'
+case node['platform']
+when 'rhel', 'fedora', 'centos'
   package_install_opts = ''
   distro = 'centos'
+  package = '.rpm'
+  arch     = '_X86_64'
 when 'debian'
   package_install_opts = ''
   distro = 'debian'
+  package = '.deb'
+  arch     = '_amd64'
   if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
   end
 when 'ubuntu'
   package_install_opts = ''
   distro = 'ubuntu'
+  package = '.deb'
+  arch     = '_amd64'
   if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
   end
 end
 
 
-bannana = "#{node['outlyer']['agent']['package']['location']}#{node['outlyer']['agent']['package']['maturity']}/#{node['platform']}/#{node['platform_version']}/pkg/outlyer-agent_#{node['outlyer']['agent']['package']['version']}_amd64.deb"
-log bannana
-remote_file '/var/tmp/outlyer.deb' do
-  source bannana
+url = "#{node['outlyer']['agent']['package']['location']}#{node['outlyer']['agent']['package']['maturity']}/#{distro}/#{node['platform_version']}/pkg/outlyer-agent_#{node['outlyer']['agent']['package']['version']}#{arch}#{package}"
+log url
+remote_file "/var/tmp/outlyer#{package}" do
+  source url
   owner 'root'
   group 'root'
   mode '0755'
   action :create
 end
 
-
-
 dpkg_package "outlyer-agent" do
   version node['outlyer']['agent']['version']
   options package_install_opts
-  source "/var/tmp/outlyer.deb"
+  source "/var/tmp/outlyer#{package}"
+  only_if {package == '.deb'}
+  action :upgrade
+end
+
+yum_package "outlyer-agent" do
+  version node['outlyer']['agent']['version']
+  options package_install_opts
+  source "/var/tmp/outlyer#{package}"
+  only_if {package == '.rpm'}
   action :upgrade
 end
