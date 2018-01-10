@@ -24,6 +24,9 @@ end
 default['outlyer']['agent']['api_key'] = nil
 default['outlyer']['agent']['server'] = "wss://agent.outlyer.com"
 
-# array of tags to apply to node
-default['outlyer']['agent']['tags'] = nil
+# Hash of lables to apply to host
+default['outlyer']['agent']['lables'] = {"foo" => "bar"}
+# List of host lable keys to also apply to metrics
+default['outlyer']['agent']['metric_lables'] = ["foo"]
+
 default['outlyer']['agent']['name'] = nil
