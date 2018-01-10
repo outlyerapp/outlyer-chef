@@ -23,12 +23,16 @@ when 'rhel', 'fedora', 'centos'
   package_install_opts = ''
   distro = 'centos'
   package = '.rpm'
-  arch     = '_X86_64'
+  version = node['platform_version'].split('.')[0]
+  arch     = ".el#{version}.x86_64"
+  delimiter = '-'
 when 'debian'
   package_install_opts = ''
   distro = 'debian'
   package = '.deb'
   arch     = '_amd64'
+  version = node['platform_version'].split('.')[0]
+  delimiter = '_'
   if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
   end
@@ -37,13 +41,15 @@ when 'ubuntu'
   distro = 'ubuntu'
   package = '.deb'
   arch     = '_amd64'
+  delimiter = '_'
+  version = node['platform_version'].split('.')[0] + '.04'
   if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
   end
 end
 
 
-url = "#{node['outlyer']['agent']['package']['location']}#{node['outlyer']['agent']['package']['maturity']}/#{distro}/#{node['platform_version']}/pkg/outlyer-agent_#{node['outlyer']['agent']['package']['version']}#{arch}#{package}"
+url = "#{node['outlyer']['agent']['package']['location']}#{node['outlyer']['agent']['package']['maturity']}/#{distro}/#{version}/pkg/outlyer-agent#{delimiter}#{node['outlyer']['agent']['package']['version']}#{arch}#{package}"
 log url
 remote_file "/var/tmp/outlyer#{package}" do
   source url
