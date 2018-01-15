@@ -11,22 +11,22 @@ agent:
     <%- else %>
     hostname: <%= node['outlyer']['agent']['name'] %>
     <%- end %>
-    ##  set the host lables applied to this agent
-    <%- if node['outlyer']['agent']['lables'].nil? %>
-    #lables:
+    ##  set the host labels applied to this agent
+    <%- if node['outlyer']['agent']['labels'].nil? %>
+    #labels:
     <%- else %>
-    lables:
-        <% @node['outlyer']['agent']['lables'].each do |lable_key, lable_value| -%>
-        <%= "#{lable_key}: #{lable_value}" %>
+    labels:
+        <% @node['outlyer']['agent']['labels'].each do |label_key, label_value| -%>
+        <%= "#{label_key}: #{label_value}" %>
         <% end -%>
     <%- end %>
     # Choose which labels are going to be added to metric dimensions
-    <%- if node['outlyer']['agent']['metric_lables'].nil? %>
-    #matric_lables:
+    <%- if node['outlyer']['agent']['metric_labels'].nil? %>
+    #matric_labels:
     <%- else %>
-    metric_lables:
-        <% @node['outlyer']['agent']['metric_lables'].each do |lable| -%>
-        - <%= "#{lable}"%> 
+    metric_labels:
+        <% @node['outlyer']['agent']['metric_labels'].each do |label| -%>
+        - <%= "#{label}"%> 
         <% end -%>
     <%- end %>
     # Locations of user plugins (default: /etc/outlyer/config.d)
