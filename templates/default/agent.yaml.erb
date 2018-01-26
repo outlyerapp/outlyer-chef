@@ -17,7 +17,7 @@ agent:
     <%- else %>
     labels:
         <% @node['outlyer']['agent']['labels'].each do |label_key, label_value| -%>
-        <%= "#{label_key}: #{label_value}" %>
+        <%= "#{label_key}: '#{label_value}'" %>
         <% end -%>
     <%- end %>
     # Choose which labels are going to be added to metric dimensions
