@@ -14,8 +14,8 @@ driver:
 site_cookbooks_dir: site-cookbook
 
 provisioner:
-  name: chef_solo
-  require_chef_omnibus: 12.6.0
+  product_name: chef
+  product_version: 12.6.0
   # chef_version: 12.5.1
 
 platforms:

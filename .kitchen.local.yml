@@ -1,0 +1,48 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cpus: 2
+    memory: 2048
+
+site_cookbooks_dir: site-cookbook
+
+provisioner:
+  product_name: chef
+  product_version: 12.6.0
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: centos-6.4
+  - name: centos-7.2
+
+suites:
+  - name: compliance-test
+    run_list:
+      - recipe[outlyer-agent]
+    verifier:
+      inspec_tests:
+        - https://github.com/dev-sec/linux-baseline.git
+  - name: outlyer-agent
+    run_list:
+      - recipe[outlyer-agent]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+      # https://github.com/chef/kitchen-inspec#use-remote-inspec-profiles
+      attrs:
+        - test/integration/default/integration_test.yml
+    attributes:
+        outlyer:
+            agent:
+              api_key: XXX-XXX-XXX-XXX-XXX
+              labels:
+                role: test31
+              package:
+                version: 0.0.30-1
+              server: 'wss://alpha-agent.outlyer.com'
+
+verifier:
+  name: inspec
