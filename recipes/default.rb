@@ -2,7 +2,7 @@
 # Cookbook Name:: outlyer-agent
 # Recipe:: default
 #
-# Copyright 2013, Dataloop Software Limited
+# Copyright 2018, Dataloop Software Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,16 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "outlyer-agent::#{node['outlyer']['agent']['install_method']}"
-
-template node['outlyer']['agent']['init_vars_file'] do
-  path "#{node['outlyer']['agent']['init_vars_dir']}/#{node['outlyer']['agent']['init_vars_file']}"
-  source "agent.conf.erb"
-  owner "root"
-  group "root"
-  mode 0640
-  notifies :restart, "service[outlyer-agent]", :delayed
-end
+include_recipe "outlyer-agent::package"
 
 template node['outlyer']['agent']['conf_file'] do
   path "#{node['outlyer']['agent']['conf_dir']}/#{node['outlyer']['agent']['conf_file']}"

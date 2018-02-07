@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: outlyer
-# Recipe:: databag
+# Recipe:: package
 #
 # Copyright 2018, Dataloop Software Limited
 #
@@ -17,7 +17,20 @@
 # limitations under the License.
 #
 
-outlyer_secret = Chef::EncryptedDataBagItem.load_secret("#{node[:outlyer][:node][:secret_key_file]}")
-outlyer_keys = Chef::EncryptedDataBagItem.load("outlyer", "keys", outlyer_secret)
+include_recipe 'outlyer-agent::repo'
 
+case node['platform_family']
+when 'rhel', 'fedora'
+  package_install_opts = ''
+when 'debian'
+  package_install_opts = ''
+  if node['outlyer']['agent']['keep_old_config'] then
+    package_install_opts = '-o Dpkg::Options::="--force-confold"'
+  end
+end
 
+package "outlyer-agent" do
+  version node['outlyer']['agent']['version']
+  options package_install_opts
+  action :upgrade
+end
