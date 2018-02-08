@@ -129,10 +129,6 @@ control "change-agent-config" do
     its('exit_status') { should eq 0 }
   end
 
-  describe r = command('systemctl restart outlyer-agent') do
-    its('exit_status') { should eq 0 }
-  end
-
   describe systemd_service('outlyer-agent') do
     it { should be_running }
   end
