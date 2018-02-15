@@ -2,16 +2,18 @@
 agent:
     # account Agent key (default: None, this is a required parameter)
     key: <%= node['outlyer']['agent']['api_key'] %>
+
     # enable debug logging (default: false)
     debug: <%= node['outlyer']['agent']['debug'] %>
+
     # override the Agent hostname (default: auto-detected)
-    ## Set if you would like a custom name for this agent. Default is hostname
     <%- if node['outlyer']['agent']['name'].nil? %>
     #hostname:
     <%- else %>
     hostname: <%= node['outlyer']['agent']['name'] %>
     <%- end %>
-    ##  set the host labels applied to this agent
+
+    # set host labels (default: None)
     <%- if node['outlyer']['agent']['labels'].nil? %>
     #labels:
     <%- else %>
@@ -20,32 +22,48 @@ agent:
         <%= "#{label_key}: '#{label_value}'" %>
         <% end -%>
     <%- end %>
-    # Choose which labels are going to be added to metric dimensions
+
+    # choose which labels are going to be added to metric dimensions
+    # metric_labels:
     <%- if node['outlyer']['agent']['metric_labels'].nil? %>
-    #matric_labels:
+    #metric_labels:
     <%- else %>
     metric_labels:
         <% @node['outlyer']['agent']['metric_labels'].each do |label| -%>
         - <%= "#{label}"%> 
         <% end -%>
     <%- end %>
-    # Locations of user plugins (default: /etc/outlyer/config.d)
-    # config_dir: "/etc/outlyer/config.d"
 
-    # Location of libjvm.so  for jmx plugins (default: False)
-    # libjvm_path: '/usr/lib/jvm/current/libjvm.so'
+    # location for the agent to store its files.
+    # The agent needs to have write access to this folder (default: /etc/outlyer)
+    # home_dir: '/etc/outlyer'
+
+    # location for check config files (default: /etc/outlyer/conf.d)
+    # config_dir: '/etc/outlyer/conf.d'
+
+    # location for check plugin files (default: /etc/outlyer/plugins)
+    # plugin_dir: '/etc/outlyer/plugins'
 
     # location for Agent server connection.
     # This should not need to be changed (default: exchange.outlyer.com)
     <%- unless node['outlyer']['agent']['server'].nil? %>
-    ### The outlyer server endpoint
     server: <%= node['outlyer']['agent']['server'] %>
     <%- end %>
 
     # solo mode disables central configuration
     solo: <%= node['outlyer']['agent']['solo_mode'] %>
 
+    # enable the docker check (default: false)
+    # docker: false
 
+    # for the docker check, set where it will find the host files needed
+    # to read containers performance data. By default, it assumes that the
+    # agent is running inside a docker container and the host files are
+    # mounted under '/host'. If you are running the agent directly on a host
+    # change that to ''/'. Please see documentation for more info
+    # rootfs: '/'
 
-
+    # port used for the agent REST api (default: 2014)
+    # set zero (0) to disable
+    # api_port: 2014
 
