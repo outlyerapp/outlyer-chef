@@ -32,5 +32,5 @@ end
 package "outlyer-agent" do
   version node['outlyer']['agent']['version']
   options package_install_opts
-  action :upgrade
+  action :install
 end
