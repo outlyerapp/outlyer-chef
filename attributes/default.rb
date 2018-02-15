@@ -1,8 +1,8 @@
 default['outlyer']['agent']['keep_old_config'] = nil # or true to keep old config
 default['outlyer']['agent']['version'] = nil
-default['outlyer']['agent']['solo_mode'] = 'no'
-default['outlyer']['agent']['debug'] = 'no'
-default['outlyer']['agent']['docker'] = 'no'
+default['outlyer']['agent']['solo_mode'] = 'false'
+default['outlyer']['agent']['debug'] = 'false'
+default['outlyer']['agent']['docker'] = 'false'
 default['outlyer']['agent']['name'] = nil
 
 default['outlyer']['agent']['conf_dir'] = "/etc/outlyer"
