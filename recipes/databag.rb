@@ -18,5 +18,4 @@
 #
 
 outlyer_secret = Chef::EncryptedDataBagItem.load_secret(node['outlyer']['node']['secret_key_file'])
-
 outlyer_keys = data_bag_item("outlyer", "keys", outlyer_secret)

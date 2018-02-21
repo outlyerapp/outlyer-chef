@@ -42,9 +42,6 @@ suites:
               package:
                 version: 0.0.30-1
               #server: 'wss://alpha-agent.outlyer.com'
-  - name: update_template
-    run_list:
-      - recipe[outlyer-agent::update_template]
   - name: compliance-test
     run_list:
       - recipe[outlyer-agent]
