@@ -1,4 +1,4 @@
-name             "outlyer-agent"
+name             "outlyer-agent-test"
 maintainer       'Dataloop Software Limited'
 maintainer_email 'support@outlyer.com'
 license          'All rights reserved'
@@ -9,6 +9,3 @@ chef_version     '>= 12.17' if respond_to?(:chef_version)
 supports         'debian'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.2.0'
-
-depends 'apt',   '~> 2.9.2'
-depends 'yum',   '~> 3.8.2'

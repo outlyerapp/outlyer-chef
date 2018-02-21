@@ -1,2 +1,4 @@
 auth_token:
   "Bearer XXX.XXX.XXX-XXX-XXX"
+api_url:
+  'https://api2.outlyer.com'

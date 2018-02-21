@@ -30,7 +30,13 @@ when 'debian'
 end
 
 package "outlyer-agent" do
-  version node['outlyer']['agent']['version']
-  options package_install_opts
-  action :upgrade
+  case node['platform_family']
+  when 'windows'
+    action :install
+    source 'C:/Users/vagrant/Desktop/outlyer-agent/outlyer-agent.exe'
+  else
+    version node['outlyer']['agent']['version']
+    options package_install_opts
+    action :upgrade
+  end
 end

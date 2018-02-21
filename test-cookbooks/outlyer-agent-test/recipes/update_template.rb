@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: outlyer-agent
-# Recipe:: default
+# Cookbook Name:: outlyer-agent-test
+# Recipe:: update_template
 #
 # Copyright 2018, Dataloop Software Limited
 #
@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "outlyer-agent::package"
-
 template node['outlyer']['agent']['conf_file'] do
   path "#{node['outlyer']['agent']['conf_dir']}/#{node['outlyer']['agent']['conf_file']}"
   source "agent.yaml.erb"
@@ -29,10 +27,4 @@ template node['outlyer']['agent']['conf_file'] do
     group "outlyer"
     mode 0640
   end
-  notifies :restart, "service[outlyer-agent]", :delayed
-end
-
-service "outlyer-agent" do
-  supports :status => true, :restart => true, :reload => false
-  action [ :enable, :start ]
 end

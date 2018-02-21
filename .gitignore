@@ -1,1 +1,6 @@
 /.kitchen/
+/node.json
+/outlyer-agent.exe
+/test/integration/default/.kitchen/
+/local-mode-cache/
+/nodes/*.json
