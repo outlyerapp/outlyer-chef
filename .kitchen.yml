@@ -36,7 +36,7 @@ suites:
     attributes:
         outlyer:
             agent:
-              api_key: XXX-XXX-XXX-XXX-XXX
+              agent_key: XXX-XXX-XXX-XXX-XXX
               labels:
                 role: test333
               package:
