@@ -22,9 +22,13 @@ include_recipe "outlyer-agent::package"
 template node['outlyer']['agent']['conf_file'] do
   path "#{node['outlyer']['agent']['conf_dir']}/#{node['outlyer']['agent']['conf_file']}"
   source "agent.yaml.erb"
-  owner "root"
-  group "outlyer"
-  mode 0640
+  if node['platform_family'] == 'windows'
+    owner "Administrators"
+  else
+    owner "root"
+    group "outlyer"
+    mode 0640
+  end
   notifies :restart, "service[outlyer-agent]", :delayed
 end
 
