@@ -9,7 +9,7 @@ hostname = ''
 test_id = SecureRandom.uuid
 
 chef_apply_bin = '/opt/chef/bin/chef-apply'
-chef_solo_cmd = '/opt/chef/bin/chef-solo -c /Users/vagrant/Desktop/outlyer-agent/solo.rb'
+chef_solo_cmd = '/opt/chef/bin/chef-solo -c /tmp/kitchen/solo.rb'
 log_file = '/var/log/outlyer/agent.log'
 node_json_path = '/Users/vagrant/Desktop/outlyer-agent/node.json'
 pip_cmd = '/opt/outlyer/embedded/bin/pip3'
@@ -20,7 +20,7 @@ service_restart = 'systemctl restart outlyer-agent'
 
 if os[:family] == 'windows'
   chef_apply_bin = 'c:/opscode/chef/bin/chef-apply.bat'
-  chef_solo_cmd = 'c:/opscode/chef/bin/chef-solo.bat -c c:/Users/vagrant/Desktop/outlyer-agent/solo.rb'
+  chef_solo_cmd = 'c:/opscode/chef/bin/chef-solo.bat -c c:/Users/vagrant/AppData/Local/Temp/kitchen/solo.rb'
   log_file = 'c:/outlyer/agent.log'
   node_json_path = 'c:/Users/vagrant/Desktop/outlyer-agent/node.json'
   pip_cmd = 'c:/outlyer/embedded/bin/python.exe c:/outlyer/embedded/bin/Scripts/pip.exe'
@@ -32,7 +32,7 @@ end
 
 copy_node_json = ruby_bin + ' -r fileutils -e "FileUtils.copy(\'' + node_json_path + '.tmpl\', \'' + node_json_path + '\')"'
 update_node_json = ruby_bin + ' -r fileutils -e "text=File.read(\'' + node_json_path + '.tmpl\'); content = text.gsub(/<TEMP_ID>/, \'' + test_id + '\'); File.open(\'' + node_json_path + '\', \'w\') {|f| f << content }"'
-update_template = chef_solo_cmd + ' -j ' + node_json_path + ' -o "recipe[outlyer-agent-test::update_template]"'
+update_template = chef_solo_cmd + ' -j ' + node_json_path + ' -o "recipe[outlyer-agent]"'
 
 # might go away when https://github.com/chef/inspec/issues/2483 is implemented
 windows_service_ps_cmd = "Get-WmiObject -Class Win32_Service -Filter  \"name = 'outlyer-agent'\" |fl * -Force"
@@ -294,7 +294,7 @@ control "metrics" do
   puts params
 
   describe 'public-api series' do
-    it 'data should appear in 10 seconds', retry: 10, retry_wait: 1 do
+    it 'data should appear in 10 seconds', retry: 30, retry_wait: 3 do
       r = http(API_URL + '/v2/accounts/' + ACCOUNT + '/series', headers: {Authorization: AUTH_TOKEN}, params: params)
       if r.status != 200
         fail 'expected status code is 200'
