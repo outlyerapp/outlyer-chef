@@ -4,3 +4,5 @@
 /test/integration/default/.kitchen/
 /local-mode-cache/
 /nodes/*.json
+/.vagrant/
+/test/integration/default/integration_test.yml
