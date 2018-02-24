@@ -112,7 +112,7 @@ control "agent-service-non-windows" do
   title "Agent service is installed and running"
 
   # agent service is installed, up and running
-  describe systemd_service('outlyer-agent') do
+  describe service('outlyer-agent') do
     it { should be_installed }
     it { should be_enabled }
     it { should be_running }
@@ -203,7 +203,7 @@ control "change-agent-config" do
   end
 
   if os[:family] != 'windows'
-    describe systemd_service('outlyer-agent') do
+    describe service('outlyer-agent') do
       it { should be_running }
     end
   end
@@ -247,7 +247,7 @@ control "deregister-agent" do
   end
 
   if os[:family] != 'windows'
-    describe systemd_service('outlyer-agent') do
+    describe service('outlyer-agent') do
       it { should_not be_running }
     end
   end
