@@ -45,12 +45,12 @@ suites:
               package:
                 version: 0.0.30-1
               #server: 'wss://alpha-agent.outlyer.com'
-  - name: compliance-test
-    run_list:
-      - recipe[outlyer-agent]
-    verifier:
-      inspec_tests:
-        - https://github.com/dev-sec/linux-baseline.git
+  #- name: compliance-test
+  #  run_list:
+  #    - recipe[outlyer-agent]
+  #  verifier:
+  #    inspec_tests:
+  #      - https://github.com/dev-sec/linux-baseline.git
 
 verifier:
   name: inspec
