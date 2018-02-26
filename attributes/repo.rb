@@ -4,6 +4,8 @@ default['outlyer']['package_distribution'] = 'stable'
 case node['platform_family']
 when 'rhel', 'fedora'
   default['outlyer']['package_repository'] = "http://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el$releasever/$basearch/"
+when 'amazon'
+  default['outlyer']['package_repository'] = "http://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el6/$basearch/"
 when 'debian'
   default['outlyer']['package_repository'] = "http://packages.outlyer.com/debian"
 end
