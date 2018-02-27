@@ -70,6 +70,13 @@ Use `node['outlyer']['agent']['tags']` to setup automatic tags so you don't need
 
 Testing
 -------
+Requirements on the test runner environment:
+* chef >=12.7
+* kitchen >=1.20
+* kitchen-ec2 >=2.2.1
+* kitchen-vagrant >=1.3.0
+* vagrant-winrm >=0.7.0
+
 You can use test-kitchen
 Testing for this cookbook has been setup with Librarian-chef and Test-Kitchen utilising vagrant as the machine provider
 

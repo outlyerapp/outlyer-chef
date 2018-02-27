@@ -11,20 +11,23 @@ test_id = SecureRandom.uuid
 chef_apply_bin = '/opt/chef/bin/chef-apply'
 chef_solo_cmd = '/opt/chef/bin/chef-solo -c /tmp/kitchen/solo.rb'
 log_file = '/var/log/outlyer/agent.log'
-node_json_path = '/Users/vagrant/Desktop/outlyer-agent/node.json'
+node_json_path = '/tmp/kitchen/data/node.json'
 pip_cmd = '/opt/outlyer/embedded/bin/pip3'
 ruby_bin = '/opt/chef/embedded/bin/ruby'
 service_start = chef_apply_bin + ' -e "service \'outlyer-agent\' do action :start end"'
 service_stop = chef_apply_bin + ' -e "service \'outlyer-agent\' do action :stop end"'
-service_restart = chef_apply_bin + ' -e "service \'outlyer-agent\' do action :restart end"'
 
 if os[:family] == 'windows'
-  chef_apply_bin = 'c:/opscode/chef/bin/chef-apply.bat'
-  chef_solo_cmd = 'c:/opscode/chef/bin/chef-solo.bat -c c:/Users/vagrant/AppData/Local/Temp/kitchen/solo.rb'
-  log_file = 'c:/outlyer/agent.log'
-  node_json_path = 'c:/Users/vagrant/Desktop/outlyer-agent/node.json'
-  pip_cmd = 'c:/outlyer/embedded/bin/python.exe c:/outlyer/embedded/bin/Scripts/pip.exe'
+  username = ''
   ruby_bin = 'c:/opscode/chef/embedded/bin/ruby.exe'
+  current_username = ruby_bin + ' -r etc -e "puts Etc.getlogin"'
+  username = inspec.command(current_username).stdout.lines.first.strip()
+
+  chef_apply_bin = 'c:/opscode/chef/bin/chef-apply.bat'
+  chef_solo_cmd = 'c:/opscode/chef/bin/chef-solo.bat -c c:/Users/' + username + '/AppData/Local/Temp/kitchen/solo.rb'
+  log_file = 'c:/outlyer/agent.log'
+  node_json_path = 'c:/Users/' + username + '/AppData/Local/Temp/kitchen/data/node.json'
+  pip_cmd = 'c:/outlyer/embedded/bin/python.exe c:/outlyer/embedded/bin/Scripts/pip.exe'
 end
 
 copy_node_json = ruby_bin + ' -r fileutils -e "FileUtils.copy(\'' + node_json_path + '.tmpl\', \'' + node_json_path + '\')"'
@@ -193,10 +196,6 @@ control "change-agent-config" do
   describe r = command(update_template) do
     its('exit_status') { should eq 0 }
     its('stderr') { should eq '' }
-  end
-
-  describe r = command(service_restart) do
-    its('exit_status') { should eq 0 }
   end
 
   if os[:family] != 'windows'
