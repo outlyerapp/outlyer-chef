@@ -69,6 +69,9 @@ control "agent" do
   describe command(pip_cmd + ' show nose') do
     its('stdout') { should match 'Version: 1.3.7' }
   end
+  describe command(pip_cmd + ' show prometheus-client') do
+    its('stdout') { should match 'Version: 0.1.1' }
+  end
   describe command(pip_cmd + ' show psutil') do
     its('stdout') { should match 'Version: 5.3.1' }
   end
