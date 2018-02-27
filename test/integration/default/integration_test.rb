@@ -60,18 +60,18 @@ control "agent" do
   describe command(pip_cmd + ' show docker') do
     its('stdout') { should match 'Version: 2.6.1' }
   end
-  describe command(pip_cmd + ' show jmxquery') do
-    its('stdout') { should match 'Version: 0.2.0' }
-  end
+  #describe command(pip_cmd + ' show jmxquery') do
+  #  its('stdout') { should match 'Version: 0.2.0' }
+  #end
   describe command(pip_cmd + ' show kubernetes') do
     its('stdout') { should match 'Version: 4.0.0' }
   end
   describe command(pip_cmd + ' show nose') do
     its('stdout') { should match 'Version: 1.3.7' }
   end
-  describe command(pip_cmd + ' show prometheus-client') do
-    its('stdout') { should match 'Version: 0.1.1' }
-  end
+  #describe command(pip_cmd + ' show prometheus-client') do
+  #  its('stdout') { should match 'Version: 0.1.1' }
+  #end
   describe command(pip_cmd + ' show psutil') do
     its('stdout') { should match 'Version: 5.3.1' }
   end
