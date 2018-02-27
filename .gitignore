@@ -3,8 +3,8 @@
 /.vagrant/
 /Vagrantfile
 /local-mode-cache/
-/node.json
+/data/node.json
 /nodes/*.json
-/outlyer-agent.exe
+/data/outlyer-agent.exe
 /test/integration/default/.kitchen/
 /test/integration/default/integration_test.yml
