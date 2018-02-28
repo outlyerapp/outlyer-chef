@@ -11,6 +11,7 @@
                 //BOX = 'outlyer-agent-centos-7'
             }
             steps {
+                git url: 'git@github.com:outlyerapp/outlyer-chef.git', branch: 'master'
                 ansiColor('xterm') {
                     sh "./ci-build.sh"
                 }
