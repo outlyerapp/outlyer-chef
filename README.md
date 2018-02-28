@@ -83,7 +83,7 @@ Testing for this cookbook has been setup with Librarian-chef and Test-Kitchen ut
 * Clone the repository
 * copy .kitchen.yml to a local version .kitchen.local.yml (this is not checked into git)
 * edit the agent_key attribute in .kitchen.local.yml with your value
-* copy test/integration/default/integration_test.yml.template to test/integration/default/integration_test.yml
+* copy data/integration_test.yml.template to test/integration/default/integration_test.yml
   and replace the auth_token with a fresh one in
 * run `kitchen converge outlyer-agent-<vagrant box name>` then `kitchen verify <vagrant box name>`
 
