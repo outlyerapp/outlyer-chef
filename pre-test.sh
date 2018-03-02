@@ -1,5 +1,3 @@
-cp .kitchen.yml .kitchen.local.yml
-sed -i "s/XXX-XXX-XXX-XXX-XXX/$AGENT_KEY/" .kitchen.local.yml
+sed "s/XXX-XXX-XXX-XXX-XXX/$AGENT_KEY/" .kitchen.yml > .kitchen.local.yml
 
-cp data/integration_test.yml.template test/integration/default/integration_test.yml
-sed -i "s/XXX.XXX.XXX-XXX-XXX/$AUTH_TOKEN/" test/integration/default/integration_test.yml
+sed "s/XXX.XXX.XXX-XXX-XXX/$AUTH_TOKEN/" data/integration_test.yml.template > test/integration_test.yml

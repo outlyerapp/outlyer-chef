@@ -44,10 +44,10 @@ suites:
       - recipe[outlyer-agent]
     verifier:
       inspec_tests:
-        - test/integration/default
+        - test
       # https://github.com/chef/kitchen-inspec#use-remote-inspec-profiles
       attrs:
-        - test/integration/default/integration_test.yml
+        - test/integration_test.yml
     attributes:
         outlyer:
             agent:
