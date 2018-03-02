@@ -7,4 +7,4 @@
 /nodes/*.json
 /data/outlyer-agent.exe
 /test/integration/default/.kitchen/
-/test/integration/default/integration_test.yml
+/test/integration_test.yml
