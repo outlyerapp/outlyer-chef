@@ -11,7 +11,7 @@ pipeline {
             //    AUTH_TOKEN = 'XXX.XXX.XXX-XXX-XXX'
             //}
             steps {
-                git url: 'git@github.com:outlyerapp/outlyer-chef.git', branch: 'master'
+                // git url: 'git@github.com:outlyerapp/outlyer-chef.git', branch: 'master'
                 ansiColor('xterm') {
                     sh "./pre-test.sh"
                     sh "kitchen test $BOX"
