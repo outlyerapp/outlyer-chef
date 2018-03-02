@@ -6,22 +6,37 @@ driver:
     cpus: 2
     memory: 2048
   gui: false
-  synced_folders:
-    - ['.', '/Users/vagrant/Desktop/outlyer-agent']
 
 site_cookbooks_dir: site-cookbook
 
 provisioner:
+  data_path: data
   product_name: chef
-  product_version: 12.17
+  product_version: 13
 
 platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: ubuntu-16.04
-  - name: centos-6.4
-  - name: centos-7.2
+  #- name: centos-6.4
+  - name: centos-7
+  #- name: centos-7.2
+  - name: centos-7.3
   - name: win7x86
+  - name: windows-2012r2
+    driver:
+      name: ec2
+    transport:
+      username: administrator
+      ssh_key: ~/.ssh/kitchen-test.pem
+  #- name: winky/amazonlinux-2
+  - name: amazonlinux-2
+    driver:
+      name: ec2
+      image_id: ami-428aa838
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/kitchen-test.pem
 
 suites:
   - name: outlyer-agent
@@ -42,12 +57,12 @@ suites:
               package:
                 version: 0.0.30-1
               #server: 'wss://alpha-agent.outlyer.com'
-  - name: compliance-test
-    run_list:
-      - recipe[outlyer-agent]
-    verifier:
-      inspec_tests:
-        - https://github.com/dev-sec/linux-baseline.git
+  #- name: compliance-test
+  #  run_list:
+  #    - recipe[outlyer-agent]
+  #  verifier:
+  #    inspec_tests:
+  #      - https://github.com/dev-sec/linux-baseline.git
 
 verifier:
   name: inspec

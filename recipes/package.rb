@@ -20,7 +20,7 @@
 include_recipe 'outlyer-agent::repo'
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   package_install_opts = ''
 when 'debian'
   package_install_opts = ''
@@ -33,7 +33,7 @@ package "outlyer-agent" do
   case node['platform_family']
   when 'windows'
     action :install
-    source 'C:/Users/vagrant/Desktop/outlyer-agent/outlyer-agent.exe'
+    source node['outlyer']['package_repository'] + 'outlyer-agent-' + (node['outlyer']['agent']['version'] ? node['outlyer']['agent']['version'] + '-1' : 'latest') + '_x86.exe'
   else
     version node['outlyer']['agent']['version']
     options package_install_opts

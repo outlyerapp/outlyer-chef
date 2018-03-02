@@ -18,7 +18,7 @@
 #
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
 
   yum_repository 'outlyer' do
     description 'Outlyer Repository'

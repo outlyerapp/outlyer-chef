@@ -70,13 +70,21 @@ Use `node['outlyer']['agent']['tags']` to setup automatic tags so you don't need
 
 Testing
 -------
+Requirements on the test runner environment:
+* chef >=12.7
+* kitchen >=1.20
+* kitchen-ec2 >=2.2.1
+* kitchen-vagrant >=1.3.0
+* vagrant-winrm >=0.7.0
+
 You can use test-kitchen
 Testing for this cookbook has been setup with Librarian-chef and Test-Kitchen utilising vagrant as the machine provider
 
 * Clone the repository
 * copy .kitchen.yml to a local version .kitchen.local.yml (this is not checked into git)
 * edit the agent_key attribute in .kitchen.local.yml with your value
-* replace the auth_token with a fresh one in test/integration/default/integration_test.yml
+* copy data/integration_test.yml.template to test/integration/default/integration_test.yml
+  and replace the auth_token with a fresh one in
 * run `kitchen converge outlyer-agent-<vagrant box name>` then `kitchen verify <vagrant box name>`
 
 Contributing

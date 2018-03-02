@@ -1,6 +1,10 @@
+/.kitchen.local.yml
 /.kitchen/
-/node.json
-/outlyer-agent.exe
-/test/integration/default/.kitchen/
+/.vagrant/
+/Vagrantfile
 /local-mode-cache/
+/data/node.json
 /nodes/*.json
+/data/outlyer-agent.exe
+/test/integration/default/.kitchen/
+/test/integration/default/integration_test.yml
