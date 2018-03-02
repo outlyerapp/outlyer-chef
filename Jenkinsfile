@@ -14,7 +14,7 @@ pipeline {
                 git url: 'git@github.com:outlyerapp/outlyer-chef.git', branch: 'master'
                 ansiColor('xterm') {
                     sh "./pre-test.sh"
-                    sh "kitchen test $BOX -c=10 -p
+                    sh "kitchen test $BOX -c=10 -p"
                 }
             }
         }
