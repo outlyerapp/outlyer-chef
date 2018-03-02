@@ -50,9 +50,9 @@ suites:
         - test/integration_test.yml
     attributes:
         outlyer:
+            package_distribution: stable
             agent:
               version: nil
-              package_distribution: stable
               agent_key: XXX-XXX-XXX-XXX-XXX
               labels:
                 role: test333
