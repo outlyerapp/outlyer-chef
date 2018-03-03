@@ -27,6 +27,8 @@ platforms:
       username: administrator
       ssh_key: ~/.ssh/kitchen-test.pem
   - name: amazonlinux-2
+    provisioner:
+      download_url: 'https://packages.chef.io/files/stable/chef/13.8.0/el/7/chef-13.8.0-1.el7.x86_64.rpm'
     driver:
       name: ec2
       image_id: ami-428aa838
