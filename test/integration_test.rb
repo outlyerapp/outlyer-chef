@@ -21,7 +21,8 @@ if os[:family] == 'windows'
   username = ''
   ruby_bin = 'c:/opscode/chef/embedded/bin/ruby.exe'
   current_username = ruby_bin + ' -r etc -e "puts Etc.getlogin"'
-  username = inspec.command(current_username).stdout.lines.first.strip()
+  u = inspec.command(current_username).stdout.lines.first
+  username = u.nil? ? 'Administrator' : u.strip()
 
   chef_apply_bin = 'c:/opscode/chef/bin/chef-apply.bat'
   chef_solo_cmd = 'c:/opscode/chef/bin/chef-solo.bat -c c:/Users/' + username + '/AppData/Local/Temp/kitchen/solo.rb'
