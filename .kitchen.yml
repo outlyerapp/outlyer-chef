@@ -36,10 +36,10 @@ platforms:
     transport:
       username: administrator
       ssh_key: ~/.ssh/kitchen-test.pem
-  - name: windows-2016-base-nano
+  - name: windows-2016-base
     driver:
       name: ec2
-      image_id: ami-6343ae1e
+      image_id: ami-4176943c
     transport:
       username: administrator
       ssh_key: ~/.ssh/kitchen-test.pem
