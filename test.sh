@@ -1,0 +1,1 @@
+for i in $(kitchen list | cut -d' ' -f1 | sed 1d | grep $BOX); do printf '%-15s\n' "${i/outlyer-agent-/}"; done | parallel -j3 --plus --tag echo slot:{%} job:{\#}/{= '$_=total_jobs()' =} \&\& echo kitchen test outlyer-agent-{= s: +:: =}
