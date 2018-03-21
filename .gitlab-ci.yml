@@ -6,7 +6,8 @@ stages:
 run_integration_tests:
   stage: build
   tags:
-    - bash
+    - docker
+  image: chef/chefdk:latest
   script:
     # Accept the version number to install from a URL trigger param
     - sed "s/XXX-XXX-XXX-XXX-XXX'/${AGENT_KEY}/" .kitchen.yml > .kitchen.local.yml
