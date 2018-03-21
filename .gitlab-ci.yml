@@ -8,4 +8,7 @@ run_integration_tests:
   tags:
     - bash
   script:
-    - kitchen test outlyer-agent-ubuntu-1604
+    # Accept the version number to install from a URL trigger param
+    - sed "s/XXX-XXX-XXX-XXX-XXX'/${AGENT_KEY}/" .kitchen.yml > .kitchen.local.yml
+    - kitchen list
+    # - kitchen test outlyer-agent-ubuntu-1604
