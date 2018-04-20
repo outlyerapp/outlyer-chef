@@ -4,8 +4,8 @@ This cookbook installs the Outlyer agent on a host.
 
 Requirements
 ------------
-* Chef 11 or higher
-* Chef 12.14 or higher on Microsoft Windows platforms
+* Chef 13 or higher
+* Chef 13 or higher on Microsoft Windows platforms
 * see metadata.rb for cookbook dependencies
 
 Platforms
@@ -19,26 +19,32 @@ Encrypted Data Bag called outlyer/keys to store the agent key securely.
 
 Attributes
 ----------
-* node['outlyer']['agent']['install_method'] : Methods of install are _package_ or _bash_. Currently the bash method does not work but it intended to satisfy non-deb or non-rpm environments.
-* node['outlyer']['agent']['version'] : Choose the version of agent to install. Set to _nil_ for the latest.
+```
 * node['outlyer']['agent']['agent_key'] : __REQUIRED__ you must set this to the agent_key for you account. Your servers will need it to communicate with outlyer.io. It is stored on you servers in a protected file.
-* node['outlyer']['agent']['deregister_onstop'] : Choose whether to deregister the agent when stopping the service
+* node['outlyer']['agent']['keep_old_config'] : true to keep old config on debian and force install
+* node['outlyer']['agent']['version'] : Choose the version of agent to install. Set to _nil_ for the latest.
 * node['outlyer']['agent']['solo_mode'] : Whether you run in solo mode with RPC turned off
 * node['outlyer']['agent']['debug'] : Debugging flag
-* node['outlyer']['agent']['tags'] : An array of tags to associate to this agent
-* node['outlyer']['agent']['name'] : A custom name for this agent, default will be hostname if not set
 * node['outlyer']['agent']['docker'] : Choose whether to discover and collect metrics for Docker containers
-
+* node['outlyer']['agent']['name'] : A custom name for this agent, default will be hostname if not set
+* node['outlyer']['agent']['home_dir'] : location for the agent to store its files
+* node['outlyer']['agent']['conf_dir'] : location for check config files
+* node['outlyer']['agent']['plugin_dir'] : location for check plugin files
+* node['outlyer']['agent']['conf_file'] : override agent config file
+* node['outlyer']['agent']['server'] : outlyer agent enpoint, should never need changing
+* node['outlyer']['agent']['labels'] : Hash of labels to apply to host
+* node['outlyer']['agent']['metric_labels'] : List of host label keys to also apply to metrics
+```
 
 Usage
 -----
 Import this cookbook into your environment:
 
 * Berkshelf:
-  * cookbook "outlyer-agent", git: "https://github.com/outlyer/outlyer-chef", tag: "v1.0.2"
+  * cookbook "outlyer-agent", git: "https://github.com/outlyer/outlyer-chef", tag: "v0.2.3"
 
 * Librarian:
-  * cookbook 'outlyer-agent', :git => 'https://github.com/outlyer/outlyer-chef', :ref => 'v1.0.2'
+  * cookbook 'outlyer-agent', :git => 'https://github.com/outlyer/outlyer-chef', :ref => 'v0.2.3'
 
 
 Include the default recipe in your nodes run list and set at least your agent key
