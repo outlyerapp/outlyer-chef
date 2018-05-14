@@ -32,6 +32,16 @@ template node['outlyer']['agent']['conf_file'] do
   notifies :restart, "service[outlyer-agent]", :delayed
 end
 
+template "circusd.ini" do
+  path "#{node['outlyer']['agent']['conf_dir']}/circusd.ini"
+  source "circusd.ini.erb"
+  not_if node['platform_family'] == 'windows'
+  owner "root"
+  group "outlyer"
+  mode 0640
+  notifies :restart, "service[outlyer-agent]", :delayed
+end
+
 service "outlyer-agent" do
   supports :status => true, :restart => true, :reload => false
   action [ :enable, :start ]
