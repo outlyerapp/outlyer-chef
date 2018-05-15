@@ -17,7 +17,7 @@ platforms:
   - name: ubuntu-1604
     driver:
       box: ubuntu-16.04
-      image_id: ami-cf172aaa
+      image_id: ami-916f59f4
   - name: centos-6
     driver:
       box: centos-6
