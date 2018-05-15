@@ -30,6 +30,11 @@ when 'rhel', 'fedora', 'amazon'
 when 'debian'
   include_recipe 'apt::default'
 
+  package 'dirmngr' do
+    action :install
+    not_if { File.exist?('/usr/bin/dirmngr') }
+  end
+
   # remove any expired apt-key
   execute "remove expired key" do
     command "apt-key del #{node['outlyer']['package_gpg_id']}"
