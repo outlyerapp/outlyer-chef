@@ -1,0 +1,40 @@
+
+[circus]
+endpoint = tcp://127.0.0.1:<%= node['outlyer']['circusd']['endpoint_port'] %>
+pubsub_endpoint = tcp://127.0.0.1:<%= node['outlyer']['circusd']['pubsub_endpoint_port'] %>
+stats_endpoint = tcp://127.0.0.1:<%= node['outlyer']['circusd']['stats_endpoint_port'] %>
+statsd = 0
+umask = 002
+logoutput = $(circus.env.log_dir)/circusd.log
+pidfile = /var/run/circusd.pid
+
+[watcher:outlyer-agent]
+cmd = $(circus.env.working_dir)/embedded/bin/python3 $(circus.env.working_dir)/agent/agent.py --config $(circus.env.config_dir)/agent.yaml
+singleton = True
+numprocesses = 1
+uid = outlyer
+guid = outlyer
+working_dir = $(circus.env.config_dir)
+; stream options
+stdout_stream.class = FileStream
+stdout_stream.filename = $(circus.env.log_dir)/agent.log
+stdout_stream.max_bytes = 20000000
+stdout_stream.backup_count = 10
+stderr_stream.filename = $(circus.env.log_dir)/agent.log
+stderr_stream.class = FileStream
+stderr_stream.color = red
+
+[plugin:statsd]
+use = circus.plugins.statsd.FullStats
+host = localhost
+port = 8125
+sample_rate = 1.0
+application_name = outlyer
+uid = outlyer
+guid = outlyer
+
+[env]
+log_dir = /var/log/outlyer
+working_dir = /opt/outlyer
+config_dir = /etc/outlyer
+PATH = /opt/outlyer/embedded/bin:/opt/outlyer/embedded/monitoring-plugins:$PATH:/bin
