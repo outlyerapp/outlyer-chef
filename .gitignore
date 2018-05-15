@@ -4,3 +4,4 @@
 /test/integration/default/.kitchen/
 /local-mode-cache/
 /nodes/*.json
+/.kitchen.local.yml

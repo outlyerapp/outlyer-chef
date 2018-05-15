@@ -1,27 +1,42 @@
 ---
 driver:
-  name: vagrant
+  name: ec2
+  region: us-east-2
   boot_timeout: 1200
-  customize:
-    cpus: 2
-    memory: 2048
   gui: false
-  synced_folders:
-    - ['.', '/Users/vagrant/Desktop/outlyer-agent']
-
-site_cookbooks_dir: site-cookbook
 
 provisioner:
   product_name: chef
-  product_version: 12.17
+  product_version: 13
 
 platforms:
-  - name: ubuntu-12.04
-  - name: ubuntu-14.04
-  - name: ubuntu-16.04
-  - name: centos-6.4
-  - name: centos-7.2
-  - name: win7x86
+  - name: ubuntu-1404
+    driver:
+      box: ubuntu-14.04
+      image_id: ami-b2132ed7
+  - name: ubuntu-1604
+    driver:
+      box: ubuntu-16.04
+      image_id: ami-cf172aaa
+  - name: centos-6
+    driver:
+      box: centos-6
+  - name: centos-7
+    driver:
+      box: centos-7
+  - name: debian-8
+    driver:
+      box: debian-8
+  - name: debian-9
+    driver:
+      box: debian-9
+  - name: windows-2012r2
+    driver:
+      image_id: ami-0a84b46f
+    transport:
+      name: winrm
+      username: administrator
+      ssh_key: ~/.ssh/kitchen-test.pem
 
 suites:
   - name: outlyer-agent
@@ -29,25 +44,15 @@ suites:
       - recipe[outlyer-agent]
     verifier:
       inspec_tests:
-        - test/integration/default
-      # https://github.com/chef/kitchen-inspec#use-remote-inspec-profiles
-      attrs:
-        - test/integration/default/integration_test.yml
+        - test
     attributes:
-        outlyer:
-            agent:
-              agent_key: XXX-XXX-XXX-XXX-XXX
-              labels:
-                role: test333
-              package:
-                version: 0.0.30-1
-              #server: 'wss://alpha-agent.outlyer.com'
-  - name: compliance-test
-    run_list:
-      - recipe[outlyer-agent]
-    verifier:
-      inspec_tests:
-        - https://github.com/dev-sec/linux-baseline.git
+      outlyer:
+        agent:
+          agent_key: XXX-XXX-XXX-XXX-XXX
+          labels:
+            role: test
+          package:
+            version: 0.0.67-1
 
 verifier:
   name: inspec
