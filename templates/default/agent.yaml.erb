@@ -60,8 +60,11 @@ agent:
     solo: <%= node['outlyer']['agent']['solo_mode'] %>
     <%- end %>
 
-    # enable the docker check (default: true)
-    # docker: true
+    # enable the docker check (default: false)
+    # docker: false
+    <%- unless node['outlyer']['agent']['docker'].nil? %>
+    docker: <%= node['outlyer']['agent']['docker'] %>
+    <%- end %>
 
     # for the docker check, set where it will find the host files needed
     # to read containers performance data. By default, it assumes that the
