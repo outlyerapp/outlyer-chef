@@ -1,4 +1,3 @@
-default['outlyer']['agent']['keep_old_config'] = nil # or true to keep old config
 default['outlyer']['agent']['version'] = nil
 default['outlyer']['agent']['solo_mode'] = nil
 default['outlyer']['agent']['debug'] = nil

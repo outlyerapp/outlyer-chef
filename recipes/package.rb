@@ -23,10 +23,7 @@ case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
   package_install_opts = ''
 when 'debian'
-  package_install_opts = ''
-  if node['outlyer']['agent']['keep_old_config'] then
     package_install_opts = '-o Dpkg::Options::="--force-confold"'
-  end
 end
 
 package "outlyer-agent" do
