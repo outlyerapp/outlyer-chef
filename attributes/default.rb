@@ -4,11 +4,6 @@ default['outlyer']['agent']['debug'] = nil
 default['outlyer']['agent']['docker'] = nil
 default['outlyer']['agent']['name'] = nil
 
-# install will install, uptionaly with a spesific version
-default['outlyer']['agent']['install'] = true
-# upgrade will install and upgrade to latest.  Any set version will be ignored if set.
-default['outlyer']['agent']['upgrade'] = false
-
 case node['platform_family']
 when 'windows'
   default['outlyer']['agent']['home_dir'] = 'c:\outlyer'
