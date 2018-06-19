@@ -30,9 +30,10 @@ when 'rhel', 'fedora', 'amazon'
 when 'debian'
   include_recipe 'apt::default'
 
+  # debian 8 require this for GPG key pulling
+  # https://github.com/chef-cookbooks/apt/issues/234
   package 'dirmngr' do
     action :install
-    not_if { File.exist?('/usr/bin/dirmngr') }
   end
 
   # remove any expired apt-key
