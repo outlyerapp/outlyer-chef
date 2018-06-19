@@ -4,10 +4,6 @@ default['outlyer']['agent']['debug'] = nil
 default['outlyer']['agent']['docker'] = nil
 default['outlyer']['agent']['name'] = nil
 
-default['outlyer']['circusd']['endpoint_port'] = 5555
-default['outlyer']['circusd']['pubsub_endpoint_port'] = 5556
-default['outlyer']['circusd']['stats_endpoint_port'] = 5557
-
 case node['platform_family']
 when 'windows'
   default['outlyer']['agent']['home_dir'] = 'c:\outlyer'
