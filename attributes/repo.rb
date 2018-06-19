@@ -10,6 +10,7 @@ when 'amazon'
     default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el7/$basearch/"
   else
     default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el6/$basearch/"
+  end
 when 'windows'
   default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/windows/"
 when 'debian'
