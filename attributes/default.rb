@@ -3,6 +3,8 @@ default['outlyer']['agent']['solo_mode'] = nil
 default['outlyer']['agent']['debug'] = nil
 default['outlyer']['agent']['docker'] = nil
 default['outlyer']['agent']['name'] = nil
+default['outlyer']['agent']['install'] = True
+default['outlyer']['agent']['upgrade'] = False
 
 case node['platform_family']
 when 'windows'
