@@ -33,8 +33,8 @@ package "outlyer-agent" do
     source node['outlyer']['package_repository'] + 'outlyer-agent-' + (node['outlyer']['agent']['version'] ? node['outlyer']['agent']['version'] + '-1' : 'latest') + '_x86.exe'
   else
         if node['outlyer']['agent']['version'] 
-            version node['outlyer']['agent']['version'] 
-	    options package_install_opts + " --allow-downgrades"
+            version node['outlyer']['agent']['version']
+            options package_install_opts
             action :install
 	else
             options package_install_opts
