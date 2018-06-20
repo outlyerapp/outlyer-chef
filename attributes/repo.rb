@@ -5,7 +5,12 @@ case node['platform_family']
 when 'rhel', 'fedora'
   default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el$releasever/$basearch/"
 when 'amazon'
-  default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el6/$basearch/"
+  case node['platform_version']
+  when 2
+    default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el7/$basearch/"
+  else
+    default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/el6/$basearch/"
+  end
 when 'windows'
   default['outlyer']['package_repository'] = "https://packages.outlyer.com/#{node['outlyer']['package_distribution']}/windows/"
 when 'debian'
