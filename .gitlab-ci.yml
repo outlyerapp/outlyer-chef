@@ -3,10 +3,20 @@ stages:
   -  build
   -  deploy
 
-run_integration_tests:
+run_quick_test:
+  stage: build
+  tags:
+    - docker
+  image: chef/chefdk
+  script:
+    - foodcritic ./
+
+run_full_tests:
   stage: build
   tags:
     - docker
   image: chef/chefdk
   script:
     - kitchen test 
+    - kitchen destroy
+  when: manual
