@@ -33,6 +33,12 @@ template node['outlyer']['agent']['conf_file'] do
 end
 
 service "outlyer-agent" do
-  supports :status => true, :restart => true, :reload => false
-  action [ :enable, :start ]
+  supports :status => false, :restart => true, :reload => false
+  if (node['platform'] == 'amazon' && node['platform_version'] != '2') ||
+    (node['platform'] == 'centos' && node['platform_version'][0] == '6')
+    provider Chef::Provider::Service::Upstart
+    action [ :start ]
+  else
+    action [ :enable, :start ]
+  end
 end
