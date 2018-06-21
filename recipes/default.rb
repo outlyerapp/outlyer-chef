@@ -41,5 +41,4 @@ service "outlyer-agent" do
   else
     action [ :enable, :start ]
   end
-  provider Chef::Provider::Service::Upstart
 end
