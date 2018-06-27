@@ -37,6 +37,22 @@ platforms:
       name: winrm
       username: administrator
       ssh_key: ~/.ssh/kitchen-test.pem
+  - name: ec2-amazonlinux-1
+    provisioner:
+      download_url: 'https://packages.chef.io/files/stable/chef/13.8.0/el/7/chef-13.8.0-1.el7.x86_64.rpm'
+    driver:
+      image_id: ami-f63b1193
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/kitchen-test.pem
+  - name: ec2-amazonlinux-2
+    provisioner:
+      download_url: 'https://packages.chef.io/files/stable/chef/13.8.0/el/7/chef-13.8.0-1.el7.x86_64.rpm'
+    driver:
+      image_id: ami-31c7f654
+    transport:
+      username: ec2-user
+      ssh_key: ~/.ssh/kitchen-test.pem
 
 suites:
   - name: outlyer-agent
