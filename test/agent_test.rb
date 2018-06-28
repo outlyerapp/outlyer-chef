@@ -1,4 +1,5 @@
 # might go away when https://github.com/chef/inspec/issues/2483 is implemented
+AMAZONLINUX2 = os[:platform][:name] == 'amazon' && os[:platform][:release] == '2'
 windows_service_ps_cmd = "Get-WmiObject -Class Win32_Service -Filter  \"name = 'outlyer-agent'\" |fl * -Force"
 windows_service_regex = {
   disabled: /StartMode\s*:\sDisabled/,
@@ -29,7 +30,7 @@ control "agent-is-installed" do
 end
 
 control "agent-service-gnu-linux" do
-  only_if { os[:family] != 'windows' }
+  only_if { os[:family] != 'windows' and not AMAZONLINUX2 }
   impact 1.0
   title "Agent service is installed and running"
 
@@ -37,6 +38,19 @@ control "agent-service-gnu-linux" do
     it { should be_installed }
     it { should be_enabled }
     it { should be_running }
+  end
+end
+
+control "agent-service-amazonlinux2" do
+  only_if { AMAZONLINUX2 }
+  impact 1.0
+  title "Agent service is installed and running"
+
+  describe bash("systemctl status outlyer-agent") do
+    its('exit_status') { should eq 0 }
+  end
+  describe bash("systemctl status outlyer-agent | grep 'Active: active (running)'") do
+    its('exit_status') { should eq 0 }
   end
 end
 
