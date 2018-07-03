@@ -8,7 +8,6 @@ source_url       'https://github.com/outlyerapp/outlyer-chef' if respond_to?(:so
 supports         'debian'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.2.3'
-chef_version '>= 12.14' if respond_to?(:chef_version)
 
 depends 'apt',   '~> 2.9.2'
 depends 'yum',   '~> 3.8.2'
