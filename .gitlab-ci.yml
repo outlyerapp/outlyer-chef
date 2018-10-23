@@ -3,7 +3,7 @@ stages:
   -  build
   -  deploy
 
-run_quick_test:
+foodcritic:
   stage: build
   tags:
     - docker
@@ -11,12 +11,24 @@ run_quick_test:
   script:
     - foodcritic ./
 
-run_full_tests:
+test_16.04:
   stage: build
   tags:
     - docker
   image: chef/chefdk
   script:
-    - kitchen test 
+    - kitchen test outlyer-agent-ubuntu-1604
+  after_script:
+    - kitchen destroy
+  when: manual
+
+test_all:
+  stage: build
+  tags:
+    - docker
+  image: chef/chefdk
+  script:
+    - kitchen test
+  after_script:
     - kitchen destroy
   when: manual
