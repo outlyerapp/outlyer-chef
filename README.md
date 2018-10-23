@@ -41,10 +41,10 @@ Usage
 Import this cookbook into your environment:
 
 * Berkshelf:
-  * cookbook "outlyer-agent", git: "https://github.com/outlyer/outlyer-chef", tag: "v0.2.3"
+  * cookbook "outlyer-agent", git: "https://github.com/outlyerapp/outlyer-chef", tag: "v1.0.1"
 
 * Librarian:
-  * cookbook 'outlyer-agent', :git => 'https://github.com/outlyer/outlyer-chef', :ref => 'v0.2.3'
+  * cookbook 'outlyer-agent', :git => 'https://github.com/outlyerapp/outlyer-chef', :ref => 'v1.0.1'
 
 
 Include the default recipe in your nodes run list and set at least your agent key
@@ -91,7 +91,7 @@ Pull requests welcome.
 
 License and Authors
 -------------------
-Author: Oliver Greenaway <oliver.greenaway@outlyer.com>
+Author: Oliver Greenaway <oliver.greenaway@outlyer.com>  
 Author: Tom Ashley <tom.ashley@outlyer.con>
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
