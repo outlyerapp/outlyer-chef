@@ -23,7 +23,7 @@ case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
   package_install_opts = ''
 when 'debian'
-    package_install_opts = '-o Dpkg::Options::="--force-confold"'
+  package_install_opts = '-o Dpkg::Options::="--force-confold"'
 end
 
 package "outlyer-agent" do
@@ -31,14 +31,13 @@ package "outlyer-agent" do
   when 'windows'
     action :install
     source node['outlyer']['package_repository'] + 'outlyer-agent-' + (node['outlyer']['agent']['version'] ? node['outlyer']['agent']['version'] + '-1' : 'latest') + '_x86.exe'
-  else
-        if node['outlyer']['agent']['version'] 
-            version node['outlyer']['agent']['version']
-            options package_install_opts
-            action :install
+  else if node['outlyer']['agent']['version']
+    version node['outlyer']['agent']['version']
+    options package_install_opts
+    action :install
 	else
-            options package_install_opts
-            action :upgrade
+    options package_install_opts
+    action :upgrade
 	end
   end
 end
