@@ -27,6 +27,8 @@ when 'debian'
 end
 
 package "outlyer-agent" do
+  retries 10
+  retry_delay 10
   case node['platform_family']
   when 'windows'
     action :install
